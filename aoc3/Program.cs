@@ -7,17 +7,17 @@ namespace aoc3
 {
     class Program
     {
-        private static List<string> pwds;
+        private static List<string> lines;
 
         static void Main(string[] args)
         {
-            pwds = new List<string>();
+            lines = new List<string>();
             FileStream fileStream = new FileStream("data.txt", FileMode.Open);
             using (StreamReader reader = new StreamReader(fileStream))
             {
                 while (reader.Peek() >= 0)
                 {
-                    pwds.Add(reader.ReadLine());
+                    lines.Add(reader.ReadLine());
                 }
                 
             }
@@ -29,7 +29,19 @@ namespace aoc3
 
         private static int Part1()
         {
+            int lineLength = lines?.First().Length ?? 1; 
+
             int answer = 0;
+            int xpos;
+
+            for (int ypos = 1; ypos < lines.Count; ypos++)
+            {
+                xpos = (ypos*3) % lineLength;
+                if(lines[ypos].Substring(xpos,1) == "#")
+                {
+                    answer++;
+                }
+            }
 
             return answer;
         }
